@@ -1,0 +1,13 @@
+app.get('/search', async (req,res) => {
+    //find all instances of the Model Restaurant
+    let results = []
+    if (req.query.name) {
+        results = await Waiter.findAll({where: {waiter_name: req.query.name}})
+    }
+    else if (req.query.salary) {
+        results = await Waiter.findAll({where: {waiter_salary: req.query.salary}})
+    }
+    
+    //respond with allRestaurants as a json objeect
+    res.json(results)
+})

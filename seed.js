@@ -1,5 +1,6 @@
 const {sequelize} = require('./db')
 //const {Restaurant, Menu, Item} = require('./models/index') //Q: WHY import these models from index vs. from each separate model file?
+const {Restaurant} = require('./models/restaurant')
 const {Item} = require('./models/item')
 
 //Q: Why do you think each object inside of the arrays are structured the way that they are?
@@ -22,7 +23,33 @@ const {Item} = require('./models/item')
 //     waiter_salary: '700',
 //   },
 // ]
-
+const seedRestaurant = [
+  {
+    name: 'AppleBees',
+    location: 'Texas',
+    cuisine: 'FastFood'
+  },
+  {
+    name: 'LittleSheep',
+    location: 'Dallas',
+    cuisine: 'Hotpot'
+  },
+  {
+    name: 'Spice Grill',
+    location: 'Houston',
+    cuisine: 'Indian'
+  },
+  {
+    name: 'Burger King',
+    location: 'Dallas',
+    cuisine: 'Hotpot'
+  },
+  {
+    name: 'McDonalds',
+    location: 'Dallas',
+    cuisine: 'Hotpot'
+  },
+]
 // const seedMenu = [
 //   {
 //     title: 'Breakfast',
@@ -68,8 +95,8 @@ const seed = async () => {
   try {
     await sequelize.sync({force: true})
     // await Waiter.bulkCreate(seedWaiter, {validate: true})
-    // await Menu.bulkCreate(seedMenu, {validate: true})
     await Item.bulkCreate(seedItem, {validate: true})
+    await Restaurant.bulkCreate(seedRestaurant, {validate: true})
     console.log('Seeding success!')
     sequelize.close()
   } catch (error) {
